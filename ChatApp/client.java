@@ -1,9 +1,9 @@
-package clientserver;
+package ChatApp;
 
 import java.util.*;
 import java.net.*;
 import java.io.*;
-import clientserver.ClientHandler;
+
 
 public class client {
 
@@ -15,6 +15,16 @@ public class client {
 
     public client (Socket socket , String username){
         try{
+
+/*
+    for what's below 
+    "socket.getInputStream()" : establish the network connection for inputting raw bytes
+    "new InputStreamReader": a converter from raw bytes to char 
+    "new BufferedReader": wraps the inputstream class and adds the buffring functions
+
+    buffering is to add the functionality to store data chunks temporarly to
+    improve reading performance and reduce system calls 
+ */
         this.socket=socket;
         this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -35,15 +45,15 @@ public class client {
 
     public void sendMessage(){
         try{
-            bufferedWriter.write(username); //
-            bufferedWriter.newLine();
-            bufferedWriter.flush();
+            bufferedWriter.write(username); //write the user name
+            bufferedWriter.newLine();       //adds a newline
+            bufferedWriter.flush();         // force the buffer to send all data saved before doing anything
 
             Scanner input = new Scanner(System.in);
 
             while(socket.isConnected()){
                 String messageToSend = input.nextLine();
-                bufferedWriter.write(username + ": "+messageToSend); // امسح اليوزرنيم بعدين
+                bufferedWriter.write(username + ": "+messageToSend); 
                 bufferedWriter.newLine();
                 bufferedWriter.flush();
             }

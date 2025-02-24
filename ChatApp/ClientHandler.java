@@ -1,4 +1,4 @@
-package clientserver;
+package ChatApp;
 
 import java.util.*;
 import java.util.ArrayList;

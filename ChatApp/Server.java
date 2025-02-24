@@ -1,4 +1,4 @@
-package clientserver;
+package ChatApp;
 
 import java.net.ServerSocket;
 import java.net.Socket;
