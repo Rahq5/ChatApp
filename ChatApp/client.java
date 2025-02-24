@@ -7,6 +7,7 @@ import java.io.*;
 
 public class client {
 
+    
     private Socket socket;
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;

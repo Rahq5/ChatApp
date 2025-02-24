@@ -41,19 +41,7 @@ public class ClientHandler implements Runnable {
         }catch(IOException e){closeEverything(socket , bufferedWriter , bufferedreader);}
     }
     
-
-    public void SetclientUsername(String clientUsername){
-        this.clientUsername = clientUsername;
-    }
-    public String GetClientUsername(){
-        return clientUsername;
-    }
-    public static ArrayList GetClientHandleeerrss(){
-        return ClientHandleerss;
-    }
-
-    
-    
+ 
     @Override
     public void run() {
         String messageFromClient; 
