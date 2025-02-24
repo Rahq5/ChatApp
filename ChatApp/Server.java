@@ -2,20 +2,29 @@ package ChatApp;
 
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.io.*;
 
 
 public class Server {
     private ServerSocket serverSocket;
+    static final HashMap<String , Chatroom> rooms = new HashMap<>();
+    static final ArrayList<String> usedUsernames = new ArrayList();
 
     public Server(ServerSocket serverSocket){
         this.serverSocket=serverSocket;
     }
+    public static void main(String[] args) throws IOException {
+        ServerSocket serverSocket = new ServerSocket(1234); 
+        //this will declare a new server socket with this port
+        
+        Server server = new Server(serverSocket);
+        server.startServer();
+    }
 
     public void startServer(){
-
         try{
-
             while(!serverSocket.isClosed()){  //while server is running
                 Socket socket = serverSocket.accept(); // listining for incoming clients (block method)
                 System.out.println("new client joined !"); // when client is connected it prints the massage
@@ -45,13 +54,26 @@ public class Server {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        ServerSocket serverSocket = new ServerSocket(1234); 
-        //this will declare a new server socket with this port
-        
-        Server server = new Server(serverSocket);
-        server.startServer();
+   
+
+
+class ChatSYS{
+    
+    public Chatroom createRoom(String RoomName , member_info member){
+
+       //follow with some naming validiation
+       
+        Chatroom chatroom = new Chatroom(RoomName, member);
+        rooms.put(RoomName , chatroom);
+        return chatroom;
     }
+
+    //find room
+    //list room
+    //delete room
+    //username avilable
+    //regester name
+}
 }
 
 

@@ -8,10 +8,12 @@ import java.net.*;
 public class ClientHandler implements Runnable {
 
     //attributes --------------
-    public static ArrayList<ClientHandler> ClientHandleerss = new ArrayList<>();
-    // this array stores all clienthandlers in one united array
+    public static HashMap<String , member_info> ClientHandleerss = new HashMap<>();
+    
 
     private Socket socket;
+    
+    private member_info member;
 
     private BufferedReader bufferedreader;
     // will be used to read data
@@ -27,15 +29,15 @@ public class ClientHandler implements Runnable {
             this.socket=socket; //client object is passed here 
 
             this.bufferedWriter=new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            //BufferedWriter object used to write data to the client. It writes text to the output stream 
-            //(in this case, the socket's output stream) and buffers the output for efficient writing
+            //BufferedWriter object used to get output to the client (reciver)
            
             this.bufferedreader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            //bufferedreader used to read data from the client. It reads text from the input stream
-            // (in this case, the socket's input stream) and buffers the input for efficient reading.
+            //BufferedReadr object used to get input to the client (sender)
 
-            this.clientUsername = bufferedreader.readLine();
-            ClientHandleerss.add(this); //the client "handed socket" will be added here
+            this.clientUsername = bufferedreader.readLine();//reader class will read name of client
+            ClientHandleerss.put(clientUsername , member); //the client will be added in the array
+
+            //u may pass the socket to the Client_info class too 
 
             broadcastMessage("Server: "+clientUsername+" has enterd the chat!");
         }catch(IOException e){closeEverything(socket , bufferedWriter , bufferedreader);}
@@ -63,7 +65,7 @@ public class ClientHandler implements Runnable {
         }
     }
     
-    public void broadcastMessage(String messageToSend){
+   /* public void broadcastMessage(String messageToSend){
         
         for(ClientHandler clientHandler : ClientHandleerss){ 
             try{
@@ -80,14 +82,15 @@ public class ClientHandler implements Runnable {
                 closeEverything(socket,bufferedWriter,bufferedreader);
             }
         }
-    }
+    }*/ 
 
-    public void removeClienthandler(){ //just remove from the static array 
+    /*public void removeClienthandler(){ //just remove from the static array 
         ClientHandleerss.remove(this);
-        broadcastMessage("Server: "+ clientUsername +" has left from the chat !\n or a client trying to join with an invalid name");
-    }
+        //broadcastMessage("Server: "+ clientUsername +" has left from the chat !\n or a client trying to join with an invalid name");
+    }*/
 
-    public void closeEverything(Socket socket , BufferedWriter bufferedWriter ,BufferedReader bufferedReader ){
+    
+    /*public void closeEverything(Socket socket , BufferedWriter bufferedWriter ,BufferedReader bufferedReader ){
         removeClienthandler(); // remove the clienthanlder from the array 
         try{
             if(bufferedWriter != null){
@@ -102,7 +105,9 @@ public class ClientHandler implements Runnable {
         }catch(IOException e){
             e.printStackTrace(); // if closing error occurs , it shows there's a problem preventing from shutting down 
         }
-    }
+    }*/
+
+    
 
     
 }
