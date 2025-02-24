@@ -83,7 +83,7 @@ public class ClientHandler implements Runnable {
                 //note: message will be also sent to the sender 
                 //why?: in case of two clients have the same name , the server will treat them as one client
                 //because it sends depending by name
-                if(clientHandler.clientUsername.equals(clientUsername)){ 
+                if(!clientHandler.clientUsername.equals(clientUsername)){ 
                     clientHandler.bufferedWriter.write(messageToSend);
                     clientHandler.bufferedWriter.newLine();
                     clientHandler.bufferedWriter.flush(); 
