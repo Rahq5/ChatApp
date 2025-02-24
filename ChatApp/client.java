@@ -17,7 +17,7 @@ public class client {
         try{
 
 /*
-    for what's below 
+    for what's below f
     "socket.getInputStream()" : establish the network connection for inputting raw bytes
     "new InputStreamReader": a converter from raw bytes to char 
     "new BufferedReader": wraps the inputstream class and adds the buffring functions
